@@ -69,7 +69,7 @@ public class SoundManager : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground");
+        if (collision.gameObject.GetComponent<PlayerController2D>())
         { 
             //do something
         }
