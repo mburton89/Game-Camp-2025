@@ -1505,7 +1505,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1721050187718437013, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 108.44
+      value: 102.4
       objectReference: {fileID: 0}
     - target: {fileID: 1721050187718437013, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1542,6 +1542,18 @@ PrefabInstance:
     - target: {fileID: 1721050187718437013, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3054010006385324806, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423176471642000780, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423176471642000780, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 4900414802171918499, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
       propertyPath: m_Name
@@ -2174,6 +2186,10 @@ PrefabInstance:
     - target: {fileID: 1856618298464656428, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
       propertyPath: m_LocalPosition.y
       value: -4.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 3423176471642000780, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.4
       objectReference: {fileID: 0}
     - target: {fileID: 4900414802171918499, guid: 373be263ebc47ab45822bde6a52002e5, type: 3}
       propertyPath: m_Name
@@ -2915,7 +2931,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 1000
+  bobDistance: 0
+  bobForce: 0
+  leftPatrolBoundary: 0
+  rightPatrolBoundary: 0
   isFacingLeft: 1
+  isGoingUp: 1
   leftPatrol: {fileID: 489980762}
   rightPatrol: {fileID: 1728558336}
   rb: {fileID: 865177087}
@@ -3359,7 +3380,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 1000
+  bobDistance: 0
+  bobForce: 0
+  leftPatrolBoundary: 0
+  rightPatrolBoundary: 0
   isFacingLeft: 1
+  isGoingUp: 1
   leftPatrol: {fileID: 489980762}
   rightPatrol: {fileID: 1728558336}
   rb: {fileID: 993819554}
@@ -3929,7 +3955,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 1000
+  bobDistance: 0
+  bobForce: 0
+  leftPatrolBoundary: 0
+  rightPatrolBoundary: 0
   isFacingLeft: 1
+  isGoingUp: 1
   leftPatrol: {fileID: 489980762}
   rightPatrol: {fileID: 1728558336}
   rb: {fileID: 1088011232}
@@ -4887,7 +4918,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 1000
+  bobDistance: 0
+  bobForce: 0
+  leftPatrolBoundary: 0
+  rightPatrolBoundary: 0
   isFacingLeft: 1
+  isGoingUp: 1
   leftPatrol: {fileID: 489980762}
   rightPatrol: {fileID: 1728558336}
   rb: {fileID: 1340410693}
@@ -10734,7 +10770,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   speed: 1000
+  bobDistance: 0
+  bobForce: 0
+  leftPatrolBoundary: 0
+  rightPatrolBoundary: 0
   isFacingLeft: 1
+  isGoingUp: 1
   leftPatrol: {fileID: 489980762}
   rightPatrol: {fileID: 1728558336}
   rb: {fileID: 1527203503}
