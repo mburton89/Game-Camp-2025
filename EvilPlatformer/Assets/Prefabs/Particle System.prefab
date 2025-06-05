@@ -4838,9 +4838,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5867788111112167444}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e6ef812649a96b4bb8c064f968758cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b5d28054c3c4a344a51040356ccd3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostMultiplier: 3.14
-  ps: {fileID: 1041416514954691159}
-  dashSeconds: 5
+  boostMultiplier: 0
+  ps: {fileID: 0}
+  dashSeconds: 0
