@@ -13,7 +13,7 @@ public class CameraFollow2D : MonoBehaviour
         // Directly snap the camera to the target position + offset
         transform.position = new Vector3(
             target.position.x + offset.x,
-            + offset.y,
+            target.position.y + offset.y,
             offset.z
         );
     }
