@@ -9,6 +9,9 @@ public class Enemy : MonoBehaviour
     private Vector2 originalPosition, previousFramePosition;
     public Rigidbody2D rb;
     private SpriteRenderer sr;
+    private float flipCooldown = 0.5f;
+    private float nextFlipTime = 0f;
+
 
     void Start()
     {
@@ -55,28 +58,27 @@ public class Enemy : MonoBehaviour
 
     void PatrolRoute()
     {
-        if (isFacingLeft && (transform.position.x < leftPatrol.position.x || collideWithGround))
+        bool stuck = previousFramePosition == (Vector2)transform.position;
+
+        if (Time.time >= nextFlipTime)
         {
-            isFacingLeft = false;
-            FlipSprite(false);
-        }
-        else if (!isFacingLeft && (transform.position.x > rightPatrol.position.x || collideWithGround))
-        {
-            isFacingLeft = true;
-            FlipSprite(true);
+            if (isFacingLeft && (transform.position.x < leftPatrol.position.x || collideWithGround || stuck))
+            {
+                isFacingLeft = false;
+                FlipSprite(false);
+                nextFlipTime = Time.time + flipCooldown;
+            }
+            else if (!isFacingLeft && (transform.position.x > rightPatrol.position.x || collideWithGround || stuck))
+            {
+                isFacingLeft = true;
+                FlipSprite(true);
+                nextFlipTime = Time.time + flipCooldown;
+            }
         }
 
-        if (isFacingLeft && previousFramePosition == (Vector2)transform.position)
-        {
-            isFacingLeft = false;
-            FlipSprite(false);
-        }
-        else if (!isFacingLeft && previousFramePosition == (Vector2)transform.position)
-        {
-            isFacingLeft = true;
-            FlipSprite(true);
-        }
+        previousFramePosition = transform.position;
     }
+
 
     void BobCheck()
     {
