@@ -83,7 +83,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.4, y: 0.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -101,12 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69b30560817b474e85200d0df4f9c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   speed: 1000
   bobDistance: 0.5
   bobForce: 3000
   isFacingLeft: 1
   isGoingUp: 1
+  collideWithGround: 0
   leftPatrol: {fileID: 3423176471642000780}
   rightPatrol: {fileID: 3054010006385324806}
   rb: {fileID: 1467737493646942158}
