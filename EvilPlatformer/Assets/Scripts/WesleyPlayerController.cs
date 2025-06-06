@@ -91,11 +91,14 @@ public class WesleyPlayerController : MonoBehaviour
                 grounded = false;
                 tempFrames = 0;
                 tempJumps--;
+                SoundManager.Instance.PlaySound("jump");
             }
             else if (tempJumps > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
                 tempJumps--;
+                SoundManager.Instance.PlaySound("jump");
+
             }
         }
     }
