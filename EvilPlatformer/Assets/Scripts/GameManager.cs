@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI bestTime;
 
+    public GameObject player;
+
     private void Awake()
     {
         instance = this;    
@@ -46,6 +48,8 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
 
         bestTime.SetText(PlayerPrefs.GetFloat("BestTime", 0f).ToString("F2"));
+
+        
     }
 
     void Update()
@@ -65,6 +69,11 @@ public class GameManager : MonoBehaviour
         if (_timeRemaining <= 0f)
         {
             GameOver();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            player.GetComponent<Destroyable>().Destroy();
         }
     }
 
