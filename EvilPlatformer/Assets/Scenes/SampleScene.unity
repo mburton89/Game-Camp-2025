@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 497409315}
   - component: {fileID: 497409314}
-  - component: {fileID: 497409313}
   - component: {fileID: 497409312}
   m_Layer: 0
   m_Name: Block
@@ -187,18 +186,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &497409313
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497409311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 499bf98f193f79046b3dcb0f884ddf13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &497409314
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -260,8 +247,8 @@ Transform:
   m_GameObject: {fileID: 497409311}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0276, y: -1.4, z: 0}
+  m_LocalScale: {x: 11.673838, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -369,8 +356,8 @@ GameObject:
   - component: {fileID: 776099539}
   - component: {fileID: 776099538}
   - component: {fileID: 776099537}
-  - component: {fileID: 776099536}
   - component: {fileID: 776099535}
+  - component: {fileID: 776099536}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -462,13 +449,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0608434f6aa79ab4184564f491686d0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  jumpHeight: 0
-  moveSpeed: 0
-  dashSpeed: 0
-  coyoteFrames: 0
-  jumps: 0
-  dashes: 0
+  rb: {fileID: 776099535}
+  jumpHeight: 5
+  coyoteFrames: 4
+  jumps: 2
+  acceleration: 1
+  maxSpeed: 2
+  dashSpeed: 6
+  dashes: 1
+  dashDuration: 0.3
 --- !u!212 &776099538
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -530,8 +519,8 @@ Transform:
   m_GameObject: {fileID: 776099534}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.1719, y: -0.1719, z: 0}
+  m_LocalScale: {x: 0.6561, y: 0.6561, z: 0.6561}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
