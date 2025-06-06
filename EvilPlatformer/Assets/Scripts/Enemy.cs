@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameObject player;
-    public float speed, bobDistance, bobForce, leftPatrolBoundary, rightPatrolBoundary;
+    public float speed, bobDistance, bobForce;
     public bool isFacingLeft = true, isGoingUp = true;
     public Transform leftPatrol, rightPatrol;
     private Vector2 originalPosition;
@@ -62,7 +62,6 @@ public class Enemy : MonoBehaviour
         if (isGoingUp && gameObject.transform.position.y > originalPosition.y + bobDistance)
         {
             isGoingUp = false;
-            Debug.Log("Going Down");
         }
         else if (!isGoingUp && gameObject.transform.position.y < originalPosition.y - bobDistance)
         {
