@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,8 +9,9 @@ public class Enemy : MonoBehaviour
     public float speed, bobDistance, bobForce;
     public bool isFacingLeft = true, isGoingUp = true;
     public Transform leftPatrol, rightPatrol;
-    private Vector2 originalPosition;
+    private Vector2 originalPosition, previousFramePosition;
     public Rigidbody2D rb;
+    
 
 
     // Start is called before the first frame update
@@ -39,10 +41,13 @@ public class Enemy : MonoBehaviour
         if (isGoingUp)
         {
             rb.AddForce(Vector2.up*bobForce*Time.deltaTime);
+            Debug.Log("Bob");
+
         }
         else
         {
             rb.AddForce(Vector2.down*bobForce*Time.deltaTime);
+            Debug.Log("Bob");
         }
     }
 
@@ -55,6 +60,16 @@ public class Enemy : MonoBehaviour
         else if (!isFacingLeft && gameObject.transform.position.x > rightPatrol.transform.position.x)
         {
             isFacingLeft = true;
+        }
+
+
+        if (isFacingLeft && previousFramePosition == new Vector2 (gameObject.transform.position.x,gameObject.transform.position.y))
+        {
+            isFacingLeft = false;
+        }
+        else if (!isFacingLeft && previousFramePosition == new Vector2 (gameObject.transform.position.x, gameObject.transform.position.y))
+        {
+            isFacingLeft= true;
         }
     }
     void BobCheck()
