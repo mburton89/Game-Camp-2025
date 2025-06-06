@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:EvilPlatformer/Assets/Scripts/CameraFollow2D.cs.meta
 guid: 298f5c5bd2dbf394198578ece0e74c25
+========
+guid: 0608434f6aa79ab4184564f491686d0a
+>>>>>>>> origin/Wesley-Controls:EvilPlatformer/Assets/Scripts/Controls.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

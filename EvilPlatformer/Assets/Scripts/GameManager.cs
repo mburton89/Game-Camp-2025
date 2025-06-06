@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     private bool _isGameOver = false;
     private Color _originalColor;
 
+    public Destroyable playerDestroy;
+
+    bool hasWon;
+
+    public TextMeshProUGUI bestTime;
+
     private void Awake()
     {
         instance = this;    
@@ -38,11 +44,13 @@ public class GameManager : MonoBehaviour
         // Cache the original color so we can revert if needed
         _originalColor = timerText.color;
         UpdateTimerUI();
+
+        bestTime.SetText(PlayerPrefs.GetFloat("BestTime", 0f).ToString("F2"));
     }
 
     void Update()
     {
-        if (_isGameOver)
+        if (_isGameOver || hasWon)
             return;
 
         // Count down
@@ -63,9 +71,9 @@ public class GameManager : MonoBehaviour
     private void UpdateTimerUI()
     {
         // Show whole seconds (round up so "10.x" still shows as "11" until it hits 10.0f exactly)
-        int displaySeconds = Mathf.CeilToInt(_timeRemaining);
-        timerText.text = displaySeconds.ToString();
-
+        //int displaySeconds = Mathf.CeilToInt(_timeRemaining);
+        //timerText.text = displaySeconds.ToString("F2");
+        timerText.text = _timeRemaining.ToString("F2");
         // Turn red if 10 seconds or less remain
         if (_timeRemaining <= 10f)
         {
@@ -75,6 +83,7 @@ public class GameManager : MonoBehaviour
         {
             timerText.color = _originalColor;
         }
+
     }
 
     /// <summary>
@@ -87,6 +96,8 @@ public class GameManager : MonoBehaviour
 
         _isGameOver = true;
         StartCoroutine(HandleGameOver());
+
+        playerDestroy.Destroy();
     }
 
     private IEnumerator HandleGameOver()
@@ -94,5 +105,22 @@ public class GameManager : MonoBehaviour
         // You could play a "time up" sound or show a UI popup here
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void WinGame()
+    {
+        SoundManager.Instance.PlaySound("collect");
+        hasWon = true;
+        timerText.color = Color.white;
+        timerText.SetText("Winner");
+        StartCoroutine(HandleGameOver());
+
+        float latestBestTime = PlayerPrefs.GetFloat("BestTime", 0f);
+
+        if (_timeRemaining > latestBestTime)
+        {
+            timerText.SetText("New Best Time!");
+            PlayerPrefs.SetFloat("BestTime", _timeRemaining);
+        }
     }
 }
