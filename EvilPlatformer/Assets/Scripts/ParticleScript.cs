@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class ParticleScript : MonoBehaviour
 {
-    public float boostMultiplier;
+    public float boostMultiplier, maxSize;
     public ParticleSystem ps;
     public int dashSeconds;
+
+    void start()
+    {
+        maxSize = ps.startSize;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && ps.startSize <= maxSize)
         {
             Debug.Log("Space Pressed");
             DashParticles();
@@ -20,7 +25,7 @@ public class ParticleScript : MonoBehaviour
 
     void increase()
     {
-        ps.startSize *= boostMultiplier;
+            ps.startSize *= boostMultiplier;
     }
 
     void decrease()

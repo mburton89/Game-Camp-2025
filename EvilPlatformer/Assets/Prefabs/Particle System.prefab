@@ -4841,6 +4841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5d28054c3c4a344a51040356ccd3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostMultiplier: 0
+  boostMultiplier: 5
   ps: {fileID: 0}
-  dashSeconds: 0
+  dashSeconds: 1
