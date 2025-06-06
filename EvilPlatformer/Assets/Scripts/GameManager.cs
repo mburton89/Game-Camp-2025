@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         if (_timeRemaining > latestBestTime)
         {
-            timerText.SetText("New Best Time!");
+            timerText.SetText("New Best Time! " + _timeRemaining.ToString("F2"));
             PlayerPrefs.SetFloat("BestTime", _timeRemaining);
         }
     }
