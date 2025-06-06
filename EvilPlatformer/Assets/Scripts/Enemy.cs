@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -9,20 +8,27 @@ public class Enemy : MonoBehaviour
     public Transform leftPatrol, rightPatrol;
     private Vector2 originalPosition, previousFramePosition;
     public Rigidbody2D rb;
-    
+    private SpriteRenderer sr;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        originalPosition = gameObject.transform.position;
+        originalPosition = transform.position;
+        previousFramePosition = transform.position;
+
+        // Cache SpriteRenderer
+        sr = GetComponent<SpriteRenderer>();
+        if (sr == null)
+        {
+            Debug.LogError("SpriteRenderer not found on Enemy!");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Move();
+        previousFramePosition = transform.position;
     }
+
     void Move()
     {
         PatrolRoute();
@@ -30,81 +36,83 @@ public class Enemy : MonoBehaviour
 
         if (isFacingLeft)
         {
-            rb.AddForce(Vector2.left*speed*Time.deltaTime);
-        }
-        else 
-        {
-            rb.AddForce(Vector2.right*speed*Time.deltaTime);
-        }
-        if (isGoingUp)
-        {
-            rb.AddForce(Vector2.up*bobForce*Time.deltaTime);
-
+            rb.AddForce(Vector2.left * speed * Time.fixedDeltaTime);
         }
         else
         {
-            rb.AddForce(Vector2.down*bobForce*Time.deltaTime);
+            rb.AddForce(Vector2.right * speed * Time.fixedDeltaTime);
+        }
+
+        if (isGoingUp)
+        {
+            rb.AddForce(Vector2.up * bobForce * Time.fixedDeltaTime);
+        }
+        else
+        {
+            rb.AddForce(Vector2.down * bobForce * Time.fixedDeltaTime);
         }
     }
 
     void PatrolRoute()
     {
-        if (isFacingLeft && (gameObject.transform.position.x < leftPatrol.transform.position.x || collideWithGround))
+        if (isFacingLeft && (transform.position.x < leftPatrol.position.x || collideWithGround))
         {
             isFacingLeft = false;
+            FlipSprite(false);
         }
-        else if (!isFacingLeft && (gameObject.transform.position.x > rightPatrol.transform.position.x || collideWithGround))
+        else if (!isFacingLeft && (transform.position.x > rightPatrol.position.x || collideWithGround))
         {
             isFacingLeft = true;
+            FlipSprite(true);
         }
 
-
-        if (isFacingLeft && previousFramePosition == new Vector2 (gameObject.transform.position.x,gameObject.transform.position.y))
+        if (isFacingLeft && previousFramePosition == (Vector2)transform.position)
         {
             isFacingLeft = false;
+            FlipSprite(false);
         }
-        else if (!isFacingLeft && previousFramePosition == new Vector2 (gameObject.transform.position.x, gameObject.transform.position.y))
+        else if (!isFacingLeft && previousFramePosition == (Vector2)transform.position)
         {
-            isFacingLeft= true;
+            isFacingLeft = true;
+            FlipSprite(true);
         }
     }
+
     void BobCheck()
     {
-        if (isGoingUp && gameObject.transform.position.y > originalPosition.y + bobDistance)
+        if (isGoingUp && transform.position.y > originalPosition.y + bobDistance)
         {
             isGoingUp = false;
         }
-        else if (!isGoingUp && gameObject.transform.position.y < originalPosition.y - bobDistance)
+        else if (!isGoingUp && transform.position.y < originalPosition.y - bobDistance)
         {
             isGoingUp = true;
         }
     }
 
+    void FlipSprite(bool faceLeft)
+    {
+        if (sr != null)
+        {
+            sr.flipX = !faceLeft;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") ||
+            collision.gameObject.CompareTag("Level"))
         {
             collideWithGround = true;
-            Debug.Log(collideWithGround);
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        collideWithGround = false;
-        if (isFacingLeft)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") ||
+            collision.gameObject.CompareTag("Level"))
         {
-            if (gameObject.GetComponent<SpriteRenderer>().flipX)
-            {
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-            }
-        }
-        else
-        {
-            if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-            {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            }
+            collideWithGround = false;
         }
     }
 }
