@@ -13,74 +13,78 @@ public class WesleyPlayerController : MonoBehaviour
 
     public float acceleration;
     public float maxSpeed;
-    //public float friction;
 
     public float dashSpeed;
     public int dashes;
     public float dashDuration;
 
-
     int tempFrames;
     int tempJumps;
     int tempDashes;
     bool is_dashing;
-    // Start is called before the first frame update
+
+    public CharacterAnimator2D characterAnimator;
+
     void Start()
     {
-        int tempFrames = coyoteFrames;
-        int tempJumps = jumps;
-        int tempDashes = dashes;
+        // Ensure our temporary counters start out equal to their base values:
+        tempFrames = coyoteFrames;
+        tempJumps = jumps;
+        tempDashes = dashes;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Grounded();
         PlayerInput();
+
+        // After processing input/movement, decide which animation to play:
+        UpdateAnimationState();
+
         rb.rotation = 0;
     }
+
     void PlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Space)) { StartCoroutine(Dash()); }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(Dash());
+        }
+
         if (!is_dashing)
         {
             Left();
             Right();
             Jump();
+
+            // Clamp horizontal speed:
             if (rb.velocity.x > maxSpeed)
-            {
                 rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
-            }
             else if (rb.velocity.x < -maxSpeed)
-            {
                 rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
-            }
-            //if (rb.velocity.x > 0)
-            //{
-            //    rb.velocity = new Vector2(rb.velocity.x - friction, rb.velocity.y);
-            //}
-            //else if (rb.velocity.x < 0)
-            //{
-            //    rb.velocity = new Vector2(-rb.velocity.x + friction, rb.velocity.y);
-            //}
         }
     }
+
     void Left()
     {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             rb.AddForce(Vector2.left * acceleration);
             sr.transform.localScale = new Vector2(-Mathf.Abs(sr.transform.localScale.x), sr.transform.localScale.y);
+            // We’ll let UpdateAnimationState() handle setting Run versus Idle
         }
     }
+
     void Right()
     {
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            sr.transform.localScale = new Vector2(Mathf.Abs(sr.transform.localScale.x), sr.transform.localScale.y);
             rb.AddForce(Vector2.right * acceleration);
+            sr.transform.localScale = new Vector2(Mathf.Abs(sr.transform.localScale.x), sr.transform.localScale.y);
+            // We’ll let UpdateAnimationState() handle setting Run versus Idle
         }
     }
+
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
@@ -92,16 +96,20 @@ public class WesleyPlayerController : MonoBehaviour
                 tempFrames = 0;
                 tempJumps--;
                 SoundManager.Instance.PlaySound("jump");
+
+                // Immediately switch to Jump animation:
+                characterAnimator.SetState(CharacterAnimator2D.State.Jump);
             }
             else if (tempJumps > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
                 tempJumps--;
                 SoundManager.Instance.PlaySound("jump");
-
+                characterAnimator.SetState(CharacterAnimator2D.State.Jump);
             }
         }
     }
+
     void Grounded()
     {
         if (grounded)
@@ -113,9 +121,7 @@ public class WesleyPlayerController : MonoBehaviour
         else
         {
             if (tempFrames > 0)
-            {
                 tempFrames--;
-            }
         }
     }
 
@@ -129,14 +135,12 @@ public class WesleyPlayerController : MonoBehaviour
             float originalDrag = rb.drag;
             rb.gravityScale = 0;
             rb.drag = 0;
+
             if (sr.transform.localScale.x > 0)
-            {
                 rb.velocity = new Vector2(dashSpeed, 0);
-            }
-            else if (sr.transform.localScale.x < 0)
-            {
+            else
                 rb.velocity = new Vector2(-dashSpeed, 0);
-            }
+
             yield return new WaitForSeconds(dashDuration);
             rb.gravityScale = originalGravity;
             rb.drag = originalDrag;
@@ -146,13 +150,40 @@ public class WesleyPlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Level" && rb.velocity.y == 0f)
+        if (collision.gameObject.tag == "Level" && Mathf.Approximately(rb.velocity.y, 0f))
         {
             grounded = true;
         }
     }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         grounded = false;
+    }
+
+    private void UpdateAnimationState()
+    {
+        // 1) If we’re dashing, do not override the animation here
+        if (is_dashing)
+            return;
+
+        // 2) If we’re in the air (not grounded), show Jump
+        if (!grounded)
+        {
+            characterAnimator.SetState(CharacterAnimator2D.State.Jump);
+            return;
+        }
+
+        // 3) If we’re on the ground but have horizontal input, show Run
+        bool pressingLeft = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
+        bool pressingRight = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        if (pressingLeft || pressingRight)
+        {
+            characterAnimator.SetState(CharacterAnimator2D.State.Run);
+            return;
+        }
+
+        // 4) Otherwise (grounded + no horizontal input), show Idle
+        characterAnimator.SetState(CharacterAnimator2D.State.Idle);
     }
 }

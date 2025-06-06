@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 73712991}
   - component: {fileID: 73712995}
   - component: {fileID: 73712996}
+  - component: {fileID: 73712997}
   m_Layer: 0
   m_Name: Player - Wesley
   m_TagString: Player
@@ -639,14 +640,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 73712991}
   sr: {fileID: 1338372908}
-  jumpHeight: 25
+  jumpHeight: 24.2
   coyoteFrames: 4
   jumps: 2
   acceleration: 12
   maxSpeed: 9
-  dashSpeed: 20
+  dashSpeed: 18.5
   dashes: 1
   dashDuration: 0.1
+  characterAnimator: {fileID: 1338372910}
 --- !u!4 &73712994
 Transform:
   m_ObjectHideFlags: 0
@@ -711,6 +713,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionPrefab: {fileID: 5142839484819857566, guid: 04eca7239ae2c8843a3af866e0cbe32e, type: 3}
+--- !u!95 &73712997
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73712989}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &117458866
 GameObject:
   m_ObjectHideFlags: 0
@@ -96072,6 +96095,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -2.1069984
       objectReference: {fileID: 0}
+    - target: {fileID: 2320019220702364402, guid: 6be0e95e53526ed48bba04b275dec3d5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2364749845461112952, guid: 6be0e95e53526ed48bba04b275dec3d5, type: 3}
       propertyPath: m_Name
       value: Foreground Assets
@@ -96213,6 +96240,10 @@ PrefabInstance:
       value: -25.753998
       objectReference: {fileID: 0}
     - target: {fileID: 5244395010241316529, guid: 6be0e95e53526ed48bba04b275dec3d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 278.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 5244395010241316529, guid: 6be0e95e53526ed48bba04b275dec3d5, type: 3}
       propertyPath: m_LocalPosition.y
       value: -4.39
       objectReference: {fileID: 0}
@@ -96255,6 +96286,10 @@ PrefabInstance:
     - target: {fileID: 7049737047012588818, guid: 6be0e95e53526ed48bba04b275dec3d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 185.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 7278053466421960741, guid: 6be0e95e53526ed48bba04b275dec3d5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 262.29
       objectReference: {fileID: 0}
     - target: {fileID: 7278053466421960741, guid: 6be0e95e53526ed48bba04b275dec3d5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -99375,6 +99410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1338372909}
   - component: {fileID: 1338372908}
+  - component: {fileID: 1338372910}
   m_Layer: 0
   m_Name: Sprite Renderer
   m_TagString: Untagged
@@ -99449,6 +99485,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 73712994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338372910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338372907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26066632ab6c9204380d3d7deb84a6ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1338372908}
+  idleSprites:
+  - {fileID: 21300000, guid: 0e5d2e3b92c21f246880fc8a8605cdef, type: 3}
+  idleFrameRate: 6
+  runSprites:
+  - {fileID: 21300000, guid: 7a8a67860ede53d41b92b73b4db6de61, type: 3}
+  - {fileID: 21300000, guid: a4a1379cf8048f64ab2454cfa1cba3ee, type: 3}
+  - {fileID: 21300000, guid: 0acdb760b8c4f0f449780dce74bd190f, type: 3}
+  - {fileID: 21300000, guid: 979433dc1dc506940887a3d6f17c2325, type: 3}
+  - {fileID: 21300000, guid: 1e51ce4ec2ad153459f8f0342d71e756, type: 3}
+  - {fileID: 21300000, guid: 250b8a0029dff0a41b52835ab67f4a53, type: 3}
+  - {fileID: 21300000, guid: 8d84c490c4e220541a094cf7919512e1, type: 3}
+  - {fileID: 21300000, guid: e93b774a345957e4bac674ba27d889a6, type: 3}
+  runFrameRate: 34
+  jumpSprite: {fileID: 21300000, guid: 9aae40bb3eed57a4a8db81ad2b0f07d1, type: 3}
 --- !u!1001 &1341423804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102855,7 +102918,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2098691560018412535, guid: 4e25e4b84481eb94b9abfb6a20296158, type: 3}
       propertyPath: m_LocalScale.x
-      value: 16.051676
+      value: 14.261964
       objectReference: {fileID: 0}
     - target: {fileID: 2098691560018412535, guid: 4e25e4b84481eb94b9abfb6a20296158, type: 3}
       propertyPath: m_LocalScale.y
@@ -102863,7 +102926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2098691560018412535, guid: 4e25e4b84481eb94b9abfb6a20296158, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 242.79286
+      value: 242.0338
       objectReference: {fileID: 0}
     - target: {fileID: 2098691560018412535, guid: 4e25e4b84481eb94b9abfb6a20296158, type: 3}
       propertyPath: m_LocalPosition.y

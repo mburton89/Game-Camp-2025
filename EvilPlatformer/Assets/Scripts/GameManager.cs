@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
 
         bestTime.SetText(PlayerPrefs.GetFloat("BestTime", 0f).ToString("F2"));
+
+        
     }
 
     void Update()
