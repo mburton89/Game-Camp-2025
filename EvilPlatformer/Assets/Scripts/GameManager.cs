@@ -131,5 +131,7 @@ public class GameManager : MonoBehaviour
             timerText.SetText("New Best Time! " + _timeRemaining.ToString("F2"));
             PlayerPrefs.SetFloat("BestTime", _timeRemaining);
         }
+
+        SoundManager.Instance.PlayWinJingle();
     }
 }

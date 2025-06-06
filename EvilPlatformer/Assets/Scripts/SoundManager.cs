@@ -22,6 +22,8 @@ public class SoundManager : MonoBehaviour
     // Internal lookup table
     private Dictionary<string, AudioClip> _clipLookup;
 
+    public AudioSource winJingle;
+
     private void Awake()
     {
         // Enforce singleton
@@ -73,5 +75,10 @@ public class SoundManager : MonoBehaviour
         { 
             //do something
         }
+    }
+
+    public void PlayWinJingle()
+    { 
+        winJingle.Play();
     }
 }
