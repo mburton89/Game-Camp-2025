@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public GameObject player;
     public float speed, bobDistance, bobForce;
     public bool isFacingLeft = true, isGoingUp = true, collideWithGround;
     public Transform leftPatrol, rightPatrol;
