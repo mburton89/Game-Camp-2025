@@ -73,6 +73,9 @@ public class PlayerController2D : MonoBehaviour
                 _rb.velocity = new Vector2(_rb.velocity.x, jumpForce);
                 _canDoubleJump = false;
             }
+
+            SoundManager.Instance.PlaySound("jump");
+
         }
 
         // 5) Dash logic:
